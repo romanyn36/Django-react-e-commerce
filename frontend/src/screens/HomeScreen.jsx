@@ -31,7 +31,7 @@ function HomeScreen() {
       error?<Message variant='danger'> {error}</Message>
       :
       <Row>
-        {products.map((productitem) => (
+        {products &&products.products.length >0 && products.products.map((productitem) => (
           <Col key={productitem.id} sm={12} md={6} lg={4} xl={3}>
             
             <Product product={productitem} />
