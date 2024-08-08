@@ -13,7 +13,10 @@ import {
   PRODUCT_CREATE_OR_UPDATE_FAIL,
   PRODUCT_CREATE_REVIEW_REQUEST,
   PRODUCT_CREATE_REVIEW_SUCCESS,
-  PRODUCT_CREATE_REVIEW_FAIL
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_TOP_REQUEST,
+  PRODUCT_TOP_SUCCESS,
+  PRODUCT_TOP_FAIL
 } from "../constants/productConstants";
 import axios from "axios";
 // here we make a request to the backend to get the products
@@ -142,3 +145,22 @@ export const createReviewAction = (productId, review) => async (dispatch, getSta
     });
   }
 }
+
+// top rated products action
+export const topRatedProductsAction = () => async (dispatch) => {
+  try {
+    //   send action to producer in cases success// to update the state
+    dispatch({ type: PRODUCT_TOP_REQUEST });
+    const { data } = await axios.get(`/api/products/top/`)
+    // update the state
+    dispatch({ type: PRODUCT_TOP_SUCCESS, playload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_TOP_FAIL,
+      playload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};

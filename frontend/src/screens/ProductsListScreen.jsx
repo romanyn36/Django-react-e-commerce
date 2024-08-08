@@ -7,13 +7,16 @@ import Message from '../components/Message'
 import { Alert, Button, ButtonGroup, Col, Row, Table } from 'react-bootstrap'
 import AlertModal from '../components/AertModal'
 import { deleteProductAction, productsListAction } from '../actions/productActions'
+import Paginator from '../components/Paginator'
 
 function ProductsListScreen() {
+    const searchQuery = window.location.search?window.location.search:''
+    const keyword = searchQuery?searchQuery.split('keyword=')[1].split('&')[0]:''
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const userInfo = useSelector(state => state.userLogin.userInfo)
     const productsList = useSelector(state => state.productsList)
-    const { loading, error, products } = productsList
+    const { loading, error, products, page, pages } = productsList
     const productDelete = useSelector(state => state.productDelete)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
 
@@ -22,11 +25,11 @@ function ProductsListScreen() {
             navigate('/login?redirect=admin/users')
         }
         else {
-            dispatch(productsListAction())
+            dispatch(productsListAction(searchQuery))
         }
 
 
-    }, [dispatch, navigate, userInfo])
+    }, [dispatch, navigate, userInfo, successDelete, searchQuery])
 
     const deleteHandler = (id) => {
         dispatch(deleteProductAction(id))
@@ -35,7 +38,7 @@ function ProductsListScreen() {
 
     return (
         <div>
-            {errorDelete && <Alert variant='danger'>{errorDelete}</Alert>       }
+            {errorDelete && <Alert variant='danger'>{errorDelete}</Alert>}
 
             <Row className='align-items-center'>
                 <Col >
@@ -49,7 +52,8 @@ function ProductsListScreen() {
             </Row>
 
 
-                {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
+            {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
+                <div>
                     <Table striped bordered hover responsive className='table-sm'>
 
                         <thead>
@@ -60,7 +64,7 @@ function ProductsListScreen() {
                                 <th>CATEGORY</th>
                                 <th>BRAND</th>
                                 <th></th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
@@ -69,11 +73,11 @@ function ProductsListScreen() {
                                     <td>{product.id}</td>
                                     <td>{product.name}</td>
                                     <td>
-                                        ${product.price} 
+                                        ${product.price}
                                     </td>
-                                    
+
                                     <td>
-                                      {product.category}
+                                        {product.category}
                                     </td>
                                     <td>
                                         {product.brand}
@@ -106,7 +110,9 @@ function ProductsListScreen() {
                             ))}
                         </tbody>
                     </Table>
-                )}
+                    <Paginator page={page} pages={pages} isAdmin={true} keyword={keyword} />
+                </div>
+            )}
         </div>
 
     )
