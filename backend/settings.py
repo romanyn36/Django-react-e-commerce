@@ -232,24 +232,24 @@ STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deploy
 
 # setup s3 bucket
 
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage"
-    },
-    "static": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-        "OPTIONS": {
-            "location": "static"
-        }
-    },
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-        "OPTIONS": {
-            "location": "static"
-        }
-    }
-}
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STORAGES = {
+#     "default": {
+#         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage"
+#     },
+#     "static": {
+#         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+#         "OPTIONS": {
+#             "location": "static"
+#         }
+#     },
+#     "staticfiles": {
+#         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+#         "OPTIONS": {
+#             "location": "static"
+#         }
+#     }
+# }
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # # AWS
 AWS_STORAGE_BUCKET_NAME = 'romyia-bucket'
@@ -264,9 +264,9 @@ AWS_S3_QUERYSTRING_AUTH = False
 # AWS_S3_VERIRTY = True
 # # using s3 bucket
 # static url
-STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
+# STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
 # root url
-STATIC_ROOT = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
+# STATIC_ROOT = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
