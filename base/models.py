@@ -35,31 +35,22 @@ class Product(models.Model):
     countInStock=models.IntegerField(null=True,blank=True,default=0)
     createdAt=models.DateTimeField(auto_now_add=True)
     
+    # in case of using s3 bucket
     def delete(self, *args, **kwargs):
-        img_path = self.image.path
-        # Delete the image file if it exists
-        if os.path.isfile(img_path):
-            os.remove(img_path)
-        # incase folder
-        # # Delete the image file if it exists
-        # product_folder_path = os.path.join(settings.MEDIA_ROOT, 'products')
-        # if os.path.isdir(product_folder_path):
-        #     # Force delete the folder even if it is not empty
-        #     shutil.rmtree(product_folder_path)
+        if self.image and self.image.name != 'placeholder.png':
+            # delete the image file if it exists
+            self.image.delete(save=False)
+             
         super().delete(*args, **kwargs)
-
-    # replace the image if alreeady exist
     def save(self, *args, **kwargs):
         # Check if a new image was uploaded
         if self.pk:
             try:
                 old_product = Product.objects.get(pk=self.pk)
-           
-                if old_product.image != self.image :
+                if old_product.image != self.image:
                     if old_product.image.name != 'placeholder.png':
                         # Delete the old image file if it exists
-                        if os.path.isfile(old_product.image.path):
-                            os.remove(old_product.image.path)
+                        old_product.image.delete(save=False)
             except Product.DoesNotExist:
                 pass
         super().save(*args, **kwargs)
