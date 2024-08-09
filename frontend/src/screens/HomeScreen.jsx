@@ -14,10 +14,10 @@ import ProductsCarousel from "../components/ProductsCarousel/ProductsCarousel";
 function HomeScreen() {
   // get search keyword from the url
   const searchQuery = window.location ? window.location.search : "";
-  const keyword = '';
+  var keyword = '';
   if (searchQuery) {
     // console.log("searchQuery", searchQuery);
-    const keyword = searchQuery.split("keyword=")[1].split("&")[0] || "";
+     keyword = searchQuery.split("keyword=")[1].split("&")[0] || "";
   }
 
   // console.log("searchQuery", searchQuery);
@@ -38,19 +38,23 @@ function HomeScreen() {
    
       {loading ? <Loader></Loader> :
         error ? <Message variant='danger'> {error}</Message>
-          :
+          : products && products.length === 0 ? <Message variant='info'>No Products Found</Message> :
           <div>
             {/* if keyword empty and null then show carousel */}
-            Main products
+            Top Rated Products
             {!searchQuery && <ProductsCarousel />}
             
             <Row>
-              {console.log("products", products)}
+              {/* {console.log("products", products)}
+              {console.log("error", error)}
+              {console.log("length", products.length)} */}
+
               {products && products.length > 0 && products.map((productitem) => (
                 <Col key={productitem.id} sm={12} md={6} lg={4} xl={3}>
 
                   <Product product={productitem} />
                 </Col>
+                
               ))}
             </Row>
             <Paginator pages={pages} page={page} keyword={keyword} />
