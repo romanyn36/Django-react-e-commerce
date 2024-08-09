@@ -5,10 +5,12 @@ import {
   CART_SAVE_SHIPPING_ADDRESS,
 } from "../constants/CartConstants";
 import axios from "axios";
+import { REACT_APP_API_URL } from "../constants/urlConfig";
 
 // action for adding item to the cart
 export const addToCartAction = (id, quantity) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/api/products/${id}/`);
+  const url = REACT_APP_API_URL + `/api/products/${id}/`;
+  const { data } = await axios.get(url);
   //   console.log(data)
   dispatch({
     type: CART_ADD_ITEM,

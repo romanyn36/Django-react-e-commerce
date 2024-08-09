@@ -19,6 +19,8 @@ import {
   PRODUCT_TOP_FAIL
 } from "../constants/productConstants";
 import axios from "axios";
+import { REACT_APP_API_URL } from "../constants/urlConfig";
+// import url from . process.env.REACT_APP_BACKEND_URL
 // here we make a request to the backend to get the products
 // if the request is successful we dispatch the action to the reducer
 // thats mean we send the action to the reducer to update the state
@@ -27,7 +29,8 @@ export const productsListAction = (searchQuery = "") => async (dispatch) => {
   try {
     //   send action to producer in cases success
     dispatch({ type: PRODUCT_LIST_REQUEST });
-    const url = "/api/products/" + searchQuery;
+    const url =REACT_APP_API_URL + "/api/products/" + searchQuery;
+    
     const { data } = await axios.get(url);
     dispatch({ type: PRODUCT_LIST_SUCCESS, playload: data });
   } catch (error) {
@@ -46,7 +49,8 @@ export const productsDetailsAction = (id) => async (dispatch) => {
   try {
     //   send action to producer in cases success// to update the state
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`/api/products/${id}/`)
+    const url = REACT_APP_API_URL + `/api/products/${id}/`;
+    const { data } = await axios.get(url);
     // update the state
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, playload: data }); 
   } catch (error) {
@@ -72,7 +76,8 @@ export const deleteProductAction = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    await axios.delete(`/api/products/delete/${id}/`, config);
+    const url = REACT_APP_API_URL + `/api/products/delete/${id}/`;
+    await axios.delete(url, config);
     // update the state
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
     dispatch(productsListAction());
@@ -103,10 +108,12 @@ export const createOrUpdateProductAction = (product,id=null) => async (dispatch,
       },
     };
     if (!id) {
-      const { data } = await axios.post(`/api/products/create/`, product, config);
+      const url = REACT_APP_API_URL + `/api/products/create/`;
+      const { data } = await axios.post(url, product, config);
       dispatch({ type: PRODUCT_CREATE_OR_UPDATE_SUCCESS, playload: data });
     } else {
-      const { data } = await axios.put(`/api/products/update/${product.get('id')}/`, product, config);
+      const url = REACT_APP_API_URL + `/api/products/update/${product.get('id')}/`;
+      const { data } = await axios.put(url, product, config);
       dispatch({ type: PRODUCT_CREATE_OR_UPDATE_SUCCESS, playload: data });
     }
     dispatch(productsListAction());
@@ -132,7 +139,8 @@ export const createReviewAction = (productId, review) => async (dispatch, getSta
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    await axios.post(`/api/products/${productId}/review/`, review, config);
+    const url = REACT_APP_API_URL + `/api/products/${productId}/review/`;
+    await axios.post(url, review, config);
     // update the state
     dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
   } catch (error) {
@@ -151,7 +159,8 @@ export const topRatedProductsAction = () => async (dispatch) => {
   try {
     //   send action to producer in cases success// to update the state
     dispatch({ type: PRODUCT_TOP_REQUEST });
-    const { data } = await axios.get(`/api/products/top/`)
+    const url = REACT_APP_API_URL + `/api/products/top/`;
+    const { data } = await axios.get(url);
     // update the state
     dispatch({ type: PRODUCT_TOP_SUCCESS, playload: data });
   } catch (error) {
