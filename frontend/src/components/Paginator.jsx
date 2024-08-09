@@ -3,7 +3,7 @@ import { Pagination } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 function SimplePaginator({ pages, page, keyword = '', isAdmin = false }) {
-    console.log("Current Page:", keyword)
+    // console.log("Current Page:", keyword)
 
     return (
         <div>

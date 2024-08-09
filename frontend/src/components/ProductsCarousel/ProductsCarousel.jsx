@@ -19,23 +19,24 @@ function ProductsCarousel() {
     }, [dispatch]);
 
     return (
-        <div style={{   }}>
-            {loadingTop ? <Loader /> : errorTop ? <Message variant='danger'>{errorTop}</Message> : (
-                <Carousel pause='hover' className='bg-dark'>
-                    {productsTop && productsTop.map((product) => (
-                        <Carousel.Item key={product.id}>
-                            <Link to={`/product/${product.id}`}>
-                                <Image src={product.image} alt={product.name} fluid  style={{width: '100%', height: '100%'}}/>
-                                <Carousel.Caption className='carousel-caption'>
-                                    <h4>{product.name} ({product.price})</h4>
-                                </Carousel.Caption>
-                            </Link>
+        <div style={{}}>
+            {loadingTop ? <Loader /> : errorTop ? <Message variant='danger'>{errorTop}</Message> : productsTop && productsTop.length === 0 ? null :
+                (
+                    <Carousel pause='hover' className='bg-dark'>
+                        {productsTop && productsTop.map((product) => (
+                            <Carousel.Item key={product.id}>
+                                <Link to={`/product/${product.id}`}>
+                                    <Image src={product.image} alt={product.name} fluid style={{ width: '100%', height: '100%' }} />
+                                    <Carousel.Caption className='carousel-caption'>
+                                        <h4>{product.name} ({product.price})</h4>
+                                    </Carousel.Caption>
+                                </Link>
 
 
-                        </Carousel.Item>
-                    ))}
-                </Carousel>
-            )}
+                            </Carousel.Item>
+                        ))}
+                    </Carousel>
+                )}
         </div>
     )
 }
