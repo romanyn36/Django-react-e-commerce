@@ -202,11 +202,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 
-# to prevent any one from acces our server
-CORS_ALLOW_ALL_ORIGINS=True
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-# ]
+
 
 # setup paypall credentials
 # settings.py
@@ -273,7 +269,17 @@ AWS_S3_QUERYSTRING_AUTH = False
 # handling the Debug mode
 if os.getcwd()=='/app':
     DEBUG = False
-    ALLOWED_HOSTS = ALLOWED_HOSTS = ['127.0.0.1','localhost','romyia-store-ddf7cf247301.herokuapp.com','romyia-store.vercel.app']
+    ALLOWED_HOSTS = ['127.0.0.1','localhost','romyia-store-ddf7cf247301.herokuapp.com','romyia-store.vercel.app']
+    # to prevent any one from acces our server
+    CORS_ALLOW_ALL_ORIGINS=True
+    # List of allowed origins (e.g., 'http://example.com', 'https://example.com')
+    CORS_ALLOWED_ORIGINS = [
+    # 'http://localhost:3000',
+    # "http://localhost:3000",
+    "https://romyia-store.vercel.app/",
+
+    ]
+
 else:
     DEBUG = True
     ALLOWED_HOSTS = []
