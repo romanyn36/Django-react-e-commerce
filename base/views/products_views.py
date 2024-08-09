@@ -14,6 +14,7 @@ from rest_framework import status
 # customize simple jwt token response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 
 
@@ -26,8 +27,27 @@ def getProducts(request):
     if keyword==None:
         keyword=''
     products=Product.objects.filter(name__icontains=keyword)
+    # pagination
+    page=request.query_params.get('page') # get page number
+    numberPerpage=9
+    paginator=Paginator(products,numberPerpage) # 3 products per page
+    try:
+        products=paginator.page(page)
+    except PageNotAnInteger:
+        # the page is not an integer deliver the first page
+        products=paginator.page(1)
+    except EmptyPage:
+        # the page is out of range deliver the last page
+        products=paginator.page(paginator.num_pages)
+        
+    if page==None:
+        page=1
+    page=int(page)
+    
+    
+        
     serialized_products=ProductSerializer(products,many=True)
-    return Response(serialized_products.data)
+    return Response({'products':serialized_products.data,'page':page,'pages':paginator.num_pages},status=status.HTTP_200_OK)
 
 @api_view(['GET']) 
 def getProduct(request,pk):
@@ -148,4 +168,13 @@ def createProductReview(request,pk):
         product.save()
         
         return Response({'detail':'Review added'},status=status.HTTP_201_CREATED)
- 
+    
+@api_view(['GET'])
+
+def getTopProducts(request):
+    """
+    get top products
+    """
+    products=Product.objects.filter(rating__gte=4).order_by('-rating')[:3]
+    serialized_products=ProductSerializer(products,many=True)
+    return Response(serialized_products.data,status=status.HTTP_200_OK)
