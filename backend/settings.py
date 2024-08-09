@@ -273,7 +273,7 @@ AWS_S3_QUERYSTRING_AUTH = False
 # handling the Debug mode
 if os.getcwd()=='/app':
     DEBUG = False
-    ALLOWED_HOSTS = ALLOWED_HOSTS = ['127.0.0.1','localhost','romyia-store-ddf7cf247301.herokuapp.com']
+    ALLOWED_HOSTS = ALLOWED_HOSTS = ['127.0.0.1','localhost','romyia-store-ddf7cf247301.herokuapp.com','romyia-store.vercel.app']
 else:
     DEBUG = True
     ALLOWED_HOSTS = []
