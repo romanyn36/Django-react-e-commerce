@@ -1,9 +1,11 @@
-# add venv to gitignore
+# add venv and locla config files to gitignore
 myenv/
+mylocal/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
 
 # C extensions
 *.so
