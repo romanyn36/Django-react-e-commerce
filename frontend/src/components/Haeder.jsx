@@ -30,7 +30,7 @@ function Haeder() {
                 height="30"
                 className="d-inline-block align-top"
               /> */}
-              Romyia
+              <i class="fa fa-shopping-cart"></i> Django Shopping
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

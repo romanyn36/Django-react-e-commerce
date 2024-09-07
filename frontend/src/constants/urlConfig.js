@@ -1,1 +1,4 @@
-export const REACT_APP_API_URL='https://romyia-store-ddf7cf247301.herokuapp.com'
+// export const REACT_APP_API_URL='https://django-shopping-ddf7cf247301.herokuapp.com'
+// export const REACT_APP_API_URL='https://django-shopping-ddf7cf247301.herokuapp.com'
+export const REACT_APP_API_URL='http://127.0.0.1:8000'
+export const MEDIA_BASE_URL="http://127.0.0.1:8000"
