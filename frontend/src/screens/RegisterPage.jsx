@@ -57,7 +57,6 @@ function RegisterPage() {
     return (
 
         <Container>
-
             <Row className='justify-content-md-center'>
                 <Col xs={12} md={6}>
                     <h1>Register</h1>

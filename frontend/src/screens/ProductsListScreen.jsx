@@ -8,6 +8,7 @@ import { Alert, Button, ButtonGroup, Col, Row, Table } from 'react-bootstrap'
 import AlertModal from '../components/AertModal'
 import { deleteProductAction, productsListAction } from '../actions/productActions'
 import Paginator from '../components/Paginator'
+import { MEDIA_BASE_URL } from '../constants/urlConfig'
 
 function ProductsListScreen() {
     const searchQuery = window.location.search?window.location.search:''
@@ -59,6 +60,7 @@ function ProductsListScreen() {
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>IMAGE</th>
                                 <th>NAME</th>
                                 <th>PRICE</th>
                                 <th>CATEGORY</th>
@@ -71,6 +73,7 @@ function ProductsListScreen() {
                             {products.map(product => (
                                 <tr key={product.id}>
                                     <td>{product.id}</td>
+                                    <td> <img src={`${MEDIA_BASE_URL}${product.image}`}  alt={product.name} width={50} height={50} /></td>
                                     <td>{product.name}</td>
                                     <td>
                                         ${product.price}
