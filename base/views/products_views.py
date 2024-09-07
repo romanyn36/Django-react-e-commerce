@@ -26,7 +26,7 @@ def getProducts(request):
     # print(query)
     if keyword==None:
         keyword=''
-    products=Product.objects.filter(name__icontains=keyword)
+    products=Product.objects.filter(name__icontains=keyword).order_by('id')
     # pagination
     page=request.query_params.get('page') # get page number
     numberPerpage=9
