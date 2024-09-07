@@ -141,27 +141,27 @@ WSGI_APPLICATION = "backend.wsgi.application"
 #     }
 # }
 # we will use the postgresql database # local server
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": 'romyia',
-#         'USER': 'postgres',
-#         'PASSWORD':os.environ.get('PG_DB_PASSWORD'),
-#         'HOST':'localhost',
-#         'PORT':'5432'
-#     }
-# }
-# AWS RDS database
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": 'RomyiaStore',
-        'USER': 'romanyn36',
+        "NAME": 'romyia',
+        'USER': 'postgres',
         'PASSWORD':os.environ.get('PG_DB_PASSWORD'),
-        'HOST':'romyia-store-identifier.cl4w6uy2ycp7.eu-north-1.rds.amazonaws.com',
+        'HOST':'localhost',
         'PORT':'5432'
     }
 }
+# AWS RDS database
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": 'RomyiaStore',
+#         'USER': 'romanyn36',
+#         'PASSWORD':os.environ.get('PG_DB_PASSWORD'),
+#         'HOST':'romyia-store-identifier.cl4w6uy2ycp7.eu-north-1.rds.amazonaws.com',
+#         'PORT':'5432'
+#     }
+# }
 
 
 # Password validation
@@ -228,33 +228,18 @@ STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deploy
 
 # setup s3 bucket
 
-# STORAGES = {
-#     "default": {
-#         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage"
-#     },
-#     "static": {
-#         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-#         "OPTIONS": {
-#             "location": "static"
-#         }
-#     },
-#     "staticfiles": {
-#         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-#         "OPTIONS": {
-#             "location": "static"
-#         }
-#     }
-# }
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # # AWS
-AWS_STORAGE_BUCKET_NAME = 'romyia-bucket'
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_S3_ACCESS_KEY_ID = os.environ.get('AWS_S3_ACCESS_KEY_ID')
-AWS_S3_SECRET_ACCESS_KEY = os.environ.get('AWS_S3_SECRET_ACCESS_KEY')
-AWS_S3_REGION_NAME = 'eu-north-1'
-AWS_S3_QUERYSTRING_AUTH = False
+# AWS_STORAGE_BUCKET_NAME = 'romyia-bucket'
+# AWS_S3_SIGNATURE_VERSION = 's3v4'
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+# AWS_S3_ACCESS_KEY_ID = os.environ.get('AWS_S3_ACCESS_KEY_ID')
+# AWS_S3_SECRET_ACCESS_KEY = os.environ.get('AWS_S3_SECRET_ACCESS_KEY')
+# AWS_S3_REGION_NAME = 'eu-north-1'
+# AWS_S3_QUERYSTRING_AUTH = False
+
 # AWS_S3_FILE_OVERWRITE = False
 # AWS_DEFAULT_ACL = None
 # AWS_S3_VERIRTY = True
@@ -267,19 +252,29 @@ AWS_S3_QUERYSTRING_AUTH = False
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # handling the Debug mode
+
+
 if os.getcwd()=='/app':
+    print('######################\nthe current directory is',os.getcwd())
     DEBUG = False
-    ALLOWED_HOSTS = ['127.0.0.1','localhost','romyia-store-ddf7cf247301.herokuapp.com','romyia-store.vercel.app']
+    ALLOWED_HOSTS = ['romyia-store-ddf7cf247301.herokuapp.com','romyia-store.vercel.app'] # for domain name
     # to prevent any one from acces our server
     CORS_ALLOW_ALL_ORIGINS=True
     # List of allowed origins (e.g., 'http://example.com', 'https://example.com')
     CORS_ALLOWED_ORIGINS = [
-    # 'http://localhost:3000',
-    # "http://localhost:3000",
+   
     "https://romyia-store.vercel.app/",
+    'https://romyia-store-ddf7cf247301.herokuapp.com/',
 
     ]
 
 else:
+    # print('######################\nthe current directory is',os.getcwd())
     DEBUG = True
-    ALLOWED_HOSTS = []
+    
+    CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000", 
+    "http://127.0.0.1:8000", 
+    ]
+    CORS_ALLOW_ALL_ORIGINS=True
+# print caurren server url domain

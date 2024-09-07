@@ -26,7 +26,7 @@ urlpatterns = [
     path("api/orders/",include('base.urls.orders_urls')),
     # this to make react app as the main template for the project
     # and render the index.html file # setup static files and templates in settings.py 
-    path ('',TemplateView.as_view(template_name='index.html')),
+    # path ('',TemplateView.as_view(template_name='index.html')),
     
 ]
 # set up media url# that means we can access media files from this url
