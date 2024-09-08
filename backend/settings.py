@@ -138,23 +138,23 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # default database
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-# we will use the postgresql database # local server
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": 'romyia',
-        'USER': 'postgres',
-        'PASSWORD':os.environ.get('PG_DB_PASSWORD'),
-        'HOST':'localhost',
-        'PORT':'5432'
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+# we will use the postgresql database # local server
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": 'romyia',
+#         'USER': 'postgres',
+#         'PASSWORD':os.environ.get('PG_DB_PASSWORD'),
+#         'HOST':'localhost',
+#         'PORT':'5432'
+#     }
+# }
 # AWS RDS database
 # DATABASES = {
 #     "default": {
@@ -260,12 +260,12 @@ STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deploy
 # handling the Debug mode
 
 # DEBUG = env.bool("DEBUG", default=False)
-ALLOWED_HOSTS  = os.getenv('ALLOWED_HOSTS', '').split(',')
+  
 
 if os.getenv('ENV') == 'PRODUCTION':
     print('######################\nthe current directory is',os.getcwd())
     DEBUG = False
-    
+    ALLOWED_HOSTS = ['django-shopping-ddf7cf247301.herokuapp.com','https://django-shopping.vercel.app/'] # for domain name
     # to prevent any one from acces our server
     CORS_ALLOW_ALL_ORIGINS=True
     # List of allowed origins (e.g., 'http://example.com', 'https://example.com')
