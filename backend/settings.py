@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'storages',
+    'cloudinary',
+    'cloudinary_storage',
     
 ]
 # to use the rest_framework_simplejwt for authentication and authorization
@@ -148,7 +150,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": 'romyia',
+#         "NAME": 'django_shop',
 #         'USER': 'postgres',
 #         'PASSWORD':os.environ.get('PG_DB_PASSWORD'),
 #         'HOST':'localhost',
@@ -244,7 +246,13 @@ STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deploy
 
 # setup s3 bucket
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET'),
+}
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # # AWS
@@ -282,6 +290,10 @@ if myenv == 'PRODUCTION':
    
     "https://django-shopping.osc-fr1.scalingo.io",
     "https://django-shopping.vercel.app",
+    # local host for testing
+    "http://localhost:3000", 
+    "http://127.0.0.1:8000", 
+    
 
     ]
 
