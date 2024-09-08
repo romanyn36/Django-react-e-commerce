@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import os
+from dotenv import load_dotenv
+
+# loading the env file
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,8 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-1f_bcf(w0tx!d_mxwf%(&(+5qr%yvbawm#-7@!c_bhu)g5m^-6"
-
+ 
+SECRET_KEY=os.environ.get('SECRET_KEY')
 
 
 
@@ -220,6 +224,8 @@ STATIC_URL = "static/" # in case of using the static folder
 STATICFILES_DIRS = [
     BASE_DIR / "frontend/build/static", # the path to the react build static folder
     ]
+# no need to use the static folder in the deployment 
+DISABLE_COLLECTSTATIC=1
 
 # setting the media root
 MEDIA_URL = "/media/" # the url to access the media files
@@ -253,18 +259,19 @@ STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deploy
 # SECURITY WARNING: don't run with debug turned on in production!
 # handling the Debug mode
 
+# DEBUG = env.bool("DEBUG", default=False)
 
 if os.getcwd()=='/app':
     print('######################\nthe current directory is',os.getcwd())
     DEBUG = False
-    ALLOWED_HOSTS = ['romyia-store-ddf7cf247301.herokuapp.com','romyia-store.vercel.app'] # for domain name
+    ALLOWED_HOSTS = ['django-shopping-ddf7cf247301.herokuapp.com','https://django-shopping.vercel.app/'] # for domain name
     # to prevent any one from acces our server
     CORS_ALLOW_ALL_ORIGINS=True
     # List of allowed origins (e.g., 'http://example.com', 'https://example.com')
     CORS_ALLOWED_ORIGINS = [
    
-    "https://romyia-store.vercel.app/",
-    'https://romyia-store-ddf7cf247301.herokuapp.com/',
+    "https://django-shopping.vercel.app/",
+    'https://django-shopping-ddf7cf247301.herokuapp.com/',
 
     ]
 

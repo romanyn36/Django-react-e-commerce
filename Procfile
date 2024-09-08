@@ -1,1 +1,2 @@
-web: gunicorn backend.wsgi --log-file -
+web: bash bin/start.sh
+postdeploy: bash bin/post_deploy.sh

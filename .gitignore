@@ -1,6 +1,7 @@
 # add venv and locla config files to gitignore
 myenv/
 mylocal/
+.env
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
