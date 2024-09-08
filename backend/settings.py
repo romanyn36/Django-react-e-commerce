@@ -260,18 +260,19 @@ STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deploy
 # handling the Debug mode
 
 # DEBUG = env.bool("DEBUG", default=False)
+ALLOWED_HOSTS  = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-if os.getcwd()=='/app':
+if os.getenv('ENV') == 'PRODUCTION':
     print('######################\nthe current directory is',os.getcwd())
     DEBUG = False
-    ALLOWED_HOSTS = ['django-shopping-ddf7cf247301.herokuapp.com','https://django-shopping.vercel.app/'] # for domain name
+    
     # to prevent any one from acces our server
     CORS_ALLOW_ALL_ORIGINS=True
     # List of allowed origins (e.g., 'http://example.com', 'https://example.com')
     CORS_ALLOWED_ORIGINS = [
    
-    "https://django-shopping.vercel.app/",
-    'https://django-shopping-ddf7cf247301.herokuapp.com/',
+    "https://django-shopping.vercel.app",
+    'https://django-shopping-ddf7cf247301.herokuapp.com',
 
     ]
 
