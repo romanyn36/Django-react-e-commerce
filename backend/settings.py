@@ -281,7 +281,7 @@ if myenv == 'PRODUCTION':
     CORS_ALLOWED_ORIGINS = [
    
     "https://django-shopping.osc-fr1.scalingo.io",
-    'https://django-shopping-ddf7cf247301.herokuapp.com',
+    "https://django-shopping.vercel.app",
 
     ]
 
