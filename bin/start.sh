@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gunicorn myapp.wsgi --log-file -
+gunicorn backend.wsgi --log-file -
