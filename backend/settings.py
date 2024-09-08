@@ -271,13 +271,12 @@ STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deploy
 
 # DEBUG = env.bool("DEBUG", default=False)
   
-
-if os.getenv('ENV') == 'PRODUCTION':
-    print('######################\nthe current directory is',os.getcwd())
+myenv=os.environ.get('ENV')
+if myenv == 'PRODUCTION':
+    print(f'############# {myenv} #########\n the current directory is',os.getcwd())
     DEBUG = False
     ALLOWED_HOSTS = ['https://django-shopping.osc-fr1.scalingo.io','https://django-shopping.vercel.app'] # for domain name
     # to prevent any one from acces our server
-    CORS_ALLOW_ALL_ORIGINS=True
     # List of allowed origins (e.g., 'http://example.com', 'https://example.com')
     CORS_ALLOWED_ORIGINS = [
    
