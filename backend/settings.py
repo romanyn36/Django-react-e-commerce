@@ -138,12 +138,12 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # default database
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 # we will use the postgresql database # local server
 # DATABASES = {
 #     "default": {
@@ -155,6 +155,16 @@ DATABASES = {
 #         'PORT':'5432'
 #     }
 # }
+# we will use the postgresql databas scaling server
+import dj_database_url
+import os
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default=os.getenv('SCALINGO_POSTGRESQL_URL')
+    )
+}
+
 # AWS RDS database
 # DATABASES = {
 #     "default": {
@@ -265,7 +275,7 @@ STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deploy
 if os.getenv('ENV') == 'PRODUCTION':
     print('######################\nthe current directory is',os.getcwd())
     DEBUG = False
-    ALLOWED_HOSTS = ['django-shopping-ddf7cf247301.herokuapp.com','https://django-shopping.vercel.app/'] # for domain name
+    ALLOWED_HOSTS = ['https://django-shopping.osc-fr1.scalingo.io','https://django-shopping.vercel.app'] # for domain name
     # to prevent any one from acces our server
     CORS_ALLOW_ALL_ORIGINS=True
     # List of allowed origins (e.g., 'http://example.com', 'https://example.com')
