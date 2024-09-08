@@ -275,12 +275,12 @@ myenv=os.environ.get('ENV')
 if myenv == 'PRODUCTION':
     print(f'############# {myenv} #########\n the current directory is',os.getcwd())
     DEBUG = False
-    ALLOWED_HOSTS = ['https://django-shopping.osc-fr1.scalingo.io','https://django-shopping.vercel.app'] # for domain name
+    ALLOWED_HOSTS = ['django-shopping.osc-fr1.scalingo.io','django-shopping.vercel.app'] # for domain name
     # to prevent any one from acces our server
     # List of allowed origins (e.g., 'http://example.com', 'https://example.com')
     CORS_ALLOWED_ORIGINS = [
    
-    "https://django-shopping.vercel.app",
+    "https://django-shopping.osc-fr1.scalingo.io",
     'https://django-shopping-ddf7cf247301.herokuapp.com',
 
     ]
