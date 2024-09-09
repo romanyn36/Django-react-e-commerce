@@ -9,6 +9,7 @@ import AlertModal from '../components/AertModal'
 import { deleteProductAction, productsListAction } from '../actions/productActions'
 import Paginator from '../components/Paginator'
 import { MEDIA_BASE_URL } from '../constants/urlConfig'
+import SearchBox from '../components/SearchBox'
 
 function ProductsListScreen() {
     const searchQuery = window.location.search?window.location.search:''
@@ -39,13 +40,17 @@ function ProductsListScreen() {
 
     return (
         <div>
+        
             {errorDelete && <Alert variant='danger'>{errorDelete}</Alert>}
 
             <Row className='align-items-center'>
                 <Col >
                     <h1>Proucts</h1>
+                    <SearchBox />
                 </Col>
+                
                 <Col className='text-end'>
+                
                     <Button className='my-3' onClick={() => navigate('/admin/products/add')}>
                         <i className='fas fa-plus'></i> Create Product
                     </Button>

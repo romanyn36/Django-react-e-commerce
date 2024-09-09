@@ -38,7 +38,8 @@ function Haeder() {
 
             <Nav className="me-auto my-2 my-lg-0"
               style={{ maxHeight: '100px' }}
-              navbarScroll>
+
+            >
               <LinkContainer to="/">
                 <Nav.Link href="/">
                   <i class="fa fa-home"></i> Home
@@ -49,28 +50,38 @@ function Haeder() {
                   <i class="fa fa-cart-shopping"></i> Cart
                 </Nav.Link>
               </LinkContainer>
-             
+
+
+            </Nav>
+            <div className="d-flex justify-content-center align-items-center mt-5 mt-md-0 text-white">
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
+                <NavDropdown className="d-none d-md-block" title={userInfo.name} id="username">
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
                   <AlertModal customebutton={<NavDropdown.Item>Logout</NavDropdown.Item>}
                     myaction={logoutHandler}
                     title="Logout" message="Are you sure you want to logout?"
-                      savetitle="Logout"
-                      variant="danger"
-                      >
+                    savetitle="Logout"
+                    variant="danger"
+                  >
 
                   </AlertModal>
                 </NavDropdown>
               ) : (
-                <LinkContainer to="login/">
+                <dev className="d-flex justify-content-between align-items-center " style={{ minWidth: '150px' }}>
+                  <LinkContainer to="/register">
+                    <Nav.Link className="text-white" >
+                      Sign Up
+                    </Nav.Link>
+                  </LinkContainer>
 
-                  <Nav.Link>
-                    <i class="fa fa-user"></i> Sign In
-                  </Nav.Link>
-                </LinkContainer>
+                  <LinkContainer to="/login">
+                    <Button
+                      className="btn bg-white text-dark rounded-pill fw-bold"
+                    >Sign In</Button>
+                  </LinkContainer>
+                </dev>
               )}
 
 
@@ -88,12 +99,12 @@ function Haeder() {
                 </NavDropdown>
               )}
 
-            </Nav>
-            <SearchBox />
+            </div>
+
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      z
+
     </header>
   );
 }

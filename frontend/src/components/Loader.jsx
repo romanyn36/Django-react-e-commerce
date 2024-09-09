@@ -9,9 +9,9 @@ function Loader({size=100}) {
                 width:`${size}px`
             }}
             >
-                <span className='sr-only'>Loading...</span>
+               
             </Spinner>
-
+            <span className='sr-only'>Loading...</span>
             {/* <Spinner animation="grow" variant="dark" /> */}
         </div>
     );

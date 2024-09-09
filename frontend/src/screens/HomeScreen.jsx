@@ -35,7 +35,7 @@ function HomeScreen() {
 
   return (
     <div>
-   
+   <SearchBox />
       {loading ? <Loader></Loader> :
         error ? <Message variant='danger'> {error}</Message>
           : products && products.length === 0 ? <Message variant='info'>No Products Found</Message> :
