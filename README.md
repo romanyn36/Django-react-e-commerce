@@ -1,5 +1,5 @@
 <div align="center" id="top"> 
-  <img src="images/main.jpg" alt="E Learning Platform Using Django" width="80%" />
+  <img src="images/main.jpg" alt="Django-Shoping" style="width: 100%; max-width: 800px" />
 
   &#xa0;
 </div>
@@ -15,10 +15,10 @@
   <img alt="GitHub stars" src="https://img.shields.io/github/stars/romanyn36/e-learning-platform-using-django?color=56BEB8" />
 </p>
 <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 20px;">
- <img src="images/product.jpg" alt="h0" style="width: 150px; margin: 10px;" />
-    <img src="images/order.jpg" alt="desc" style="width: 150px; margin: 10px;" />
-    <img src="images/orderlist.jpg" alt="home" style="width: 150px; margin: 10px;" />
-    <img src="images/payment.jpg" alt="how" style="width: 150px; margin: 10px;" />
+ <img src="images/product.jpg" alt="product" style="width: 150px; margin: 10px;" />
+    <img src="images/order.jpg" alt="order" style="width: 150px; margin: 10px;" />
+    <img src="images/orderlist.jpg" alt="orderlist" style="width: 150px; margin: 10px;" />
+    <img src="images/payment.jpg" alt="payment" style="width: 150px; margin: 10px;" />
 </div>
 
 <p align="center">
@@ -39,6 +39,7 @@
 
 This project is designed as a **Full-Stack Training Project**, making it an excellent resource for beginners to learn how to build a full-stack application using Django and React.
 
+you can see the live demo [here](https://django-shopping.vercel.app/)
 ---
 
 ## :sparkles: Features ##
@@ -141,8 +142,8 @@ $ npm start
 :memo: License
 This project is licensed under the MIT License. For more details, see the LICENSE file.
 
-:heart: Contact Me
-Made  by Romani – an AI Engineer and Django Developer. Feel free to reach out for collaborations, questions, or new projects!
+
+- Made by Romani – an AI Engineer and Django Developer. Feel free to reach out for collaborations, questions, or new projects!
 
 <p align="center"> <a href="https://github.com/romanyn36" target="_blank"> <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="GitHub" height="30" width="40" /> </a> <a href="https://linkedin.com/in/romanyn36" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linkedin/linkedin-original.svg" alt="LinkedIn" height="30" width="40" /> </a> <a href="https://twitter.com/romaninasrat" target="_blank"> <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="Twitter" height="30" width="40" /> </a> <a href="https://www.instagram.com/romanyn36" target="_blank">  </a> </p>
 <a href="#top">Back to top</a>
