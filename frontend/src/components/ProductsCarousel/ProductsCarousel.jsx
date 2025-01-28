@@ -6,7 +6,6 @@ import { Carousel, Image } from 'react-bootstrap';
 import { topRatedProductsAction } from '../../actions/productActions';
 import { Link } from 'react-router-dom';
 import './ProductsCarousel.css';
-import { MEDIA_BASE_URL } from '../../constants/urlConfig';
 
 function ProductsCarousel() {
     const dispatch = useDispatch();
@@ -27,7 +26,7 @@ function ProductsCarousel() {
                         {productsTop && productsTop.map((product) => (
                             <Carousel.Item key={product.id}>
                                 <Link to={`/product/${product.id}`}>
-                                    <Image src={`${MEDIA_BASE_URL}${product.image}`}  alt={product.name} fluid style={{ width: '100%', height: '100%' }} />
+                                    <Image src={`${process.env.REACT_APP_MEDIA_URL}${product.image}`}  alt={product.name} fluid style={{ width: '100%', height: '100%' }} />
                                     <Carousel.Caption className='carousel-caption'>
                                         <h4>{product.name} ({product.price})</h4>
                                     </Carousel.Caption>

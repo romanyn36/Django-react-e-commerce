@@ -1,5 +1,4 @@
 import { ORDER_MYORDERS_RESET } from "../constants/OrderConstants";
-import { REACT_APP_API_URL } from "../constants/urlConfig";
 import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_REQUEST,
@@ -34,7 +33,7 @@ export const userLoginAction = (email, password) => async (dispatch) => {
   try {
     //   send action to producer in cases success
     dispatch({ type: USER_LOGIN_REQUEST });
-    const url = REACT_APP_API_URL + "/api/users/login/";
+    const url = process.env.REACT_APP_API_URL + "/api/users/login/";
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +64,7 @@ export const userRegisterAction =
     try {
       //   send action to producer in cases success
       dispatch({ type: USER_REGISTER_REQUEST });
-      const url = REACT_APP_API_URL + "/api/users/register/";
+      const url = process.env.REACT_APP_API_URL + "/api/users/register/";
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -107,7 +106,7 @@ export const getUserDetailAction = (id, url= `/api/users/${id}/`
 
 ) => async (dispatch, getState) => {
   try {
-    url = REACT_APP_API_URL + url;
+    url = process.env.REACT_APP_API_URL + url;
     dispatch({ type: USER_DETAILS_REQUEST });
     const {
       userLogin: { userInfo },
@@ -137,7 +136,7 @@ export const userUpadateProfileAction =
       const {
         userLogin: { userInfo },
       } = getState();
-      const url = REACT_APP_API_URL + "/api/users/profile/update/";
+      const url = process.env.REACT_APP_API_URL + "/api/users/profile/update/";
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -166,7 +165,7 @@ export const userListAction = () => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState();
-    const url = REACT_APP_API_URL + "/api/users/";
+    const url = process.env.REACT_APP_API_URL + "/api/users/";
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -191,7 +190,7 @@ export const deleteUserAction = (id) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState(); // get the user info from the state
-    const url = REACT_APP_API_URL + `/api/users/delete/${id}/`; // the url to make the request
+    const url = process.env.REACT_APP_API_URL + `/api/users/delete/${id}/`; // the url to make the request
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -218,7 +217,7 @@ export const updateUserAction = (id,user) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState();
-    const url = REACT_APP_API_URL + `/api/users/update/${id}/`;
+    const url = process.env.REACT_APP_API_URL + `/api/users/update/${id}/`;
     const config = {
       headers: {
         "Content-Type": "application/json",

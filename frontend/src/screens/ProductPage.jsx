@@ -68,7 +68,8 @@ function ProductPage() {
           <div>
             <Row>
               <Col md={5}>
-                <Image src={product.image} alt={product.name} fluid style={{ maxHeight: "350px" }} />
+                <Image src={`${process.env.REACT_APP_MEDIA_URL}${product.image}`} 
+                alt={product.name} fluid style={{ maxHeight: "350px" }} />
               </Col>
               <Col md={4}>
                 <ListGroup variant="flush">

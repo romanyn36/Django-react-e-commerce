@@ -101,7 +101,7 @@ function OrderScreen() {
                                                 <ListGroup.Item key={index}>
                                                     <Row>
                                                         <Col md={1}>
-                                                            <img src={item.image} alt={item.name} className='img-fluid' />
+                                                             <img src={`${process.env.REACT_APP_MEDIA_URL}${item.image}`}  alt={item.name} className='img-fluid' />
                                                         </Col>
                                                         <Col>
                                                             {item.name}

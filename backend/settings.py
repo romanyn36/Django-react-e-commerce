@@ -140,12 +140,12 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # default database
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 # we will use the postgresql database # local server
 # DATABASES = {
 #     "default": {
@@ -161,11 +161,11 @@ WSGI_APPLICATION = "backend.wsgi.application"
 import dj_database_url
 import os
 
-DATABASES = {
-    "default": dj_database_url.config(
-        default=os.getenv('SCALINGO_POSTGRESQL_URL')
-    )
-}
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=os.getenv('SCALINGO_POSTGRESQL_URL')
+#     )
+# }
 
 # AWS RDS database
 # DATABASES = {
@@ -246,13 +246,14 @@ STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deploy
 
 # setup s3 bucket
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
-    'API_KEY': os.environ.get('API_KEY'),
-    'API_SECRET': os.environ.get('API_SECRET'),
-}
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+#     'API_KEY': os.environ.get('API_KEY'),
+#     'API_SECRET': os.environ.get('API_SECRET'),
+# }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # # AWS

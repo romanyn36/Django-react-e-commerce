@@ -27,8 +27,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         but we are adding more key value pairs to the response
         """
         data = super().validate(attrs)
+        # make empty dictionary
+        # data = {} # if we want remove the access and refresh token from the response and add our own
 
         refresh = self.get_token(self.user)
+        
         # method 1 you can add the key value pairs manually
         # data["refresh"] = str(refresh)
         # data["access"] = str(refresh.access_token)
@@ -41,12 +44,37 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
          
         return data
     
+# login view
 class MyTokenObtainPairView(TokenObtainPairView):
     """ now we are using the custom token response in the view to show the custom response
-    this is api view for the token response
+    this is api view for the token response //login
     note: this class requires POST request with username and password in the body by default
     """
     serializer_class = MyTokenObtainPairSerializer
+    
+
+@api_view(['POST']) 
+def registerUser(request):
+    print (request.data)
+    data=request.data
+    try:
+        user=User.objects.create(
+            first_name=data['name'],
+            username=data['username'],
+            email=data['email'],
+            password=make_password(data['password'])
+        )
+    except:
+        if User.objects.filter(username=data['username']).exists() and User.objects.filter(email=data['email']).exists():
+            message={'detail':'User with this email and username already exists'}
+        elif User.objects.filter(email=data['email']).exists():
+            message={'detail':'User with this email already exists'}
+        else:
+            message={'detail':'User with this username already exists'}
+        return Response(message,status=status.HTTP_400_BAD_REQUEST)
+    user.save()
+    serlized=UserSerializerWithToken(user,many=False)
+    return Response(serlized.data)
     
     
 @api_view(['GET'])
@@ -84,29 +112,6 @@ def updateUserProfile(request):
     return Response(serialized_users.data,status=status.HTTP_200_OK)
 
 
-@api_view(['POST']) 
-def registerUser(request):
-    print (request.data)
-    data=request.data
-    try:
-        user=User.objects.create(
-            first_name=data['name'],
-            username=data['username'],
-            email=data['email'],
-            password=make_password(data['password'])
-        )
-    except:
-        if User.objects.filter(username=data['username']).exists() and User.objects.filter(email=data['email']).exists():
-            message={'detail':'User with this email and username already exists'}
-        elif User.objects.filter(email=data['email']).exists():
-            message={'detail':'User with this email already exists'}
-        else:
-            message={'detail':'User with this username already exists'}
-        return Response(message,status=status.HTTP_400_BAD_REQUEST)
-    user.save()
-    serlized=UserSerializerWithToken(user,many=False)
-    return Response(serlized.data)
-    
 # admin views to handle users
 @api_view(['GET']) 
 @permission_classes([IsAuthenticated,IsAdminUser]) 

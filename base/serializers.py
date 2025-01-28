@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Order,OrderItem,Product,Review,ShippingAddress
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -62,7 +62,8 @@ class OrderSerializer(serializers.ModelSerializer):
         except:
             address=False
         return address
-        
+
+# UserSerializer
 class UserSerializer(serializers.ModelSerializer):
     """each key have defualt getter if we need customize it key value we must customize or overwrrite getter
     or just keep original model key"""
@@ -95,6 +96,9 @@ class UserSerializerWithToken(UserSerializer):
         fields=["id",'name',"username","email","isAdmin",'token']
     def get_token(self,obj):
         """we genertae token for the user"""
+        # or we can use AccessToken.for_user(obj) to get access token
+        # token=AccessToken.for_user(obj)
+        # or we can use RefreshToken.for_user(obj) to get refresh token and extract access token from it
         token=RefreshToken.for_user(obj)
         return str(token.access_token)
         

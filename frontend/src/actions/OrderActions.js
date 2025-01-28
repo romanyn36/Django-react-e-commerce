@@ -20,13 +20,12 @@ import {
   ORDER_PAY_SUCCESS,
 } from "../constants/OrderConstants";
 import { CART_CLEAR_ITEMS } from "../constants/CartConstants";
-import { REACT_APP_API_URL } from "../constants/urlConfig";
 
 export const createOrderAction = (order) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_CREATE_REQUEST });
     const { userLogin: {userInfo} } = getState();
-    const url = REACT_APP_API_URL + "/api/orders/add/";
+    const url = process.env.REACT_APP_API_URL + "/api/orders/add/";
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +54,7 @@ export const getOrderDetailsAction = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST });
     const { userLogin: {userInfo} } = getState();
-    const url = REACT_APP_API_URL + `/api/orders/${id}/`;
+    const url = process.env.REACT_APP_API_URL + `/api/orders/${id}/`;
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -82,7 +81,7 @@ export const payOrderAction = (orderId, paymentResult) => async (
   try {
     dispatch({ type: ORDER_PAY_REQUEST });
     const { userLogin: {userInfo} } = getState();
-    const url = REACT_APP_API_URL + `/api/orders/${orderId}/pay/`;
+    const url = process.env.REACT_APP_API_URL + `/api/orders/${orderId}/pay/`;
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +104,7 @@ export const MyOrdersAction = () => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_MYORDERS_REQUEST });
     const { userLogin: {userInfo} } = getState();
-    const url = REACT_APP_API_URL + `/api/orders/myorders/`;
+    const url = process.env.REACT_APP_API_URL + `/api/orders/myorders/`;
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -129,7 +128,7 @@ export const allOrdersAction = () => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_ALL_REQUEST });
     const { userLogin: {userInfo} } = getState();
-    const url = REACT_APP_API_URL + `/api/orders/all/`;
+    const url = process.env.REACT_APP_API_URL + `/api/orders/all/`;
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -152,7 +151,7 @@ export const deliverOrderAction = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_DELIVER_REQUEST });
     const { userLogin: {userInfo} } = getState();
-    const url = REACT_APP_API_URL + `/api/orders/${id}/deliver/`;
+    const url = process.env.REACT_APP_API_URL + `/api/orders/${id}/deliver/`;
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
