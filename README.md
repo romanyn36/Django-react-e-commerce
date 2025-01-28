@@ -7,12 +7,12 @@
 <h1 align="center">Django-Shoping</h1>
 
 <p align="center">
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/romanyn36/e-learning-platform-using-django?color=56BEB8">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/romanyn36/e-learning-platform-using-django?color=56BEB8">
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/romanyn36/e-learning-platform-using-django?color=56BEB8">
-  <img alt="License" src="https://img.shields.io/github/license/romanyn36/e-learning-platform-using-django?color=56BEB8">
-  <img alt="GitHub forks" src="https://img.shields.io/github/forks/romanyn36/e-learning-platform-using-django?color=56BEB8" />
-  <img alt="GitHub stars" src="https://img.shields.io/github/stars/romanyn36/e-learning-platform-using-django?color=56BEB8" />
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/romanyn36/Django-react-e-commerce?color=56BEB8">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/romanyn36/Django-react-e-commerce?color=56BEB8">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/romanyn36/Django-react-e-commerce?color=56BEB8">
+  <img alt="License" src="https://img.shields.io/github/license/romanyn36/Django-react-e-commerce?color=56BEB8">
+  <img alt="GitHub forks" src="https://img.shields.io/github/forks/romanyn36/Django-react-e-commerce?color=56BEB8" />
+  <img alt="GitHub stars" src="https://img.shields.io/github/stars/romanyn36/Django-react-e-commerce?color=56BEB8" />
 </p>
 <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 20px;">
  <img src="images/product.jpg" alt="product" style="width: 150px; margin: 10px;" />
@@ -73,16 +73,23 @@ The following tools and frameworks were used in this project:
   - [AWS S3](https://aws.amazon.com/s3/) for file storage.
   - [AWS RDS](https://aws.amazon.com/rds/) for database management.
   - [Cloudinary Storage](https://pypi.org/project/django-cloudinary-storage/) for media storage.
+  - [PostgreSQL](https://www.postgresql.org/) for the database.
+  
 
 - **Frontend:**
   - [React](https://reactjs.org/)
   - [React Bootstrap](https://react-bootstrap.github.io/)
   - [Axios](https://axios-http.com/) for API requests.
+  - [redux](https://redux.js.org/) for state management.
+
 
 - **Payment Integration:**
   - [PayPal](https://developer.paypal.com/docs/api-basics/)
 
 ---
+<!-- note  -->
+<h2 color="red">
+ :warning: API Documentation will be added soon </h2>
 
 ## :white_check_mark: Requirements ##
 
