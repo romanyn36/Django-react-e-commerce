@@ -228,11 +228,12 @@ myenv=os.environ.get('ENV')
 if myenv == 'PRODUCTION':
     print(f'############# {myenv} #########\n the current directory is',os.getcwd())
     DEBUG = False
-    ALLOWED_HOSTS = ['django-shopping.vercel.app'] # for domain name
+    ALLOWED_HOSTS = ['django-shopping.vercel.app','django-react-e-commerce-879300ec5fcb.herokuapp.com']
     # to prevent any one from acces our server
     CORS_ALLOWED_ORIGINS = [
    
     "https://django-shopping.vercel.app"
+    "https://django-react-e-commerce-879300ec5fcb.herokuapp.com"
     # "http://localhost:3000", 
     # "http://127.0.0.1:8000", 
     
