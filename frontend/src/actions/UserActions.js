@@ -81,6 +81,7 @@ export const userRegisterAction =
         config
       );
       dispatch({ type: USER_REGISTER_SUCCESS, playload: data });
+      dispatch({ type: USER_LOGIN_SUCCESS, playload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
       dispatch({
