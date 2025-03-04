@@ -232,7 +232,7 @@ if myenv == 'PRODUCTION':
     # to prevent any one from acces our server
     CORS_ALLOWED_ORIGINS = [
    
-    "https://django-shopping.vercel.app"
+    "https://django-shopping.vercel.app",
     "https://django-react-e-commerce-879300ec5fcb.herokuapp.com"
     # "http://localhost:3000", 
     # "http://127.0.0.1:8000", 
@@ -241,7 +241,7 @@ if myenv == 'PRODUCTION':
     ]
 
 else:
-    # print('######################\nthe current directory is',os.getcwd())
+    print('######################\nth environment is',myenv," ",os.getcwd())
     DEBUG = True
     
     CORS_ALLOWED_ORIGINS = [
