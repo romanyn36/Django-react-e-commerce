@@ -151,7 +151,7 @@ def createProductReview(request,pk):
         review=Review(
             product=product,
             user=user,
-            name=user.first_name,
+            name=user.name,
             rating=float(data['rating']),
             comment=data['comment']
         )
