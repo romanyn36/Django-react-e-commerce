@@ -9,17 +9,8 @@ def get_directory_path(instance, filename):
     if isinstance(instance, Product):
          # in case of product table 
         return f'products/{filename}'
-    # elif isinstance(instance, Admin):
-    #     # in case of admin table
-    #     return f'staff_{instance.pk}/{filename}'
-    # elif isinstance(instance, DataHistory):
-    #     # in data history table
-    #     # cjeck the media type that is not null or empty
-    #     if instance.image:
-    #         media_type = 'image'
-    #     elif instance.audio:
-    #         media_type = 'audio'
-    #     return f'user_{instance.user.pk}/{media_type}/{filename}'
+    else :
+        return f'unknown/{filename}'
 # Create your models here.
 class Product(models.Model):
     id=models.AutoField(primary_key=True,editable=False)

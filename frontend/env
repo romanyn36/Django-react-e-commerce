@@ -1,0 +1,4 @@
+# set the environment variables
+# note that set the two variables below to the same value if you using same server for both frontend and backend(no storage server)
+REACT_APP_API_URL=
+REACT_APP_MEDIA_URL=

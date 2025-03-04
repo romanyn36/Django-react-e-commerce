@@ -14,6 +14,9 @@ from pathlib import Path
 from datetime import timedelta
 import os
 from dotenv import load_dotenv
+import dj_database_url
+
+
 
 # loading the env file
 load_dotenv()
@@ -157,27 +160,6 @@ DATABASES = {
 #         'PORT':'5432'
 #     }
 # }
-# we will use the postgresql databas scaling server
-import dj_database_url
-import os
-
-# DATABASES = {
-#     "default": dj_database_url.config(
-#         default=os.getenv('SCALINGO_POSTGRESQL_URL')
-#     )
-# }
-
-# AWS RDS database
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": 'RomyiaStore',
-#         'USER': 'romanyn36',
-#         'PASSWORD':os.environ.get('PG_DB_PASSWORD'),
-#         'HOST':'romyia-store-identifier.cl4w6uy2ycp7.eu-north-1.rds.amazonaws.com',
-#         'PORT':'5432'
-#     }
-# }
 
 
 # Password validation
@@ -244,7 +226,7 @@ MEDIA_URL = "/media/" # the url to access the media files
 MEDIA_ROOT = BASE_DIR / "media" # the path to the media folder# it can be inside the static folder
 STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deployment on heroku # in new version of django not needed as added in the storage settings
 
-# setup s3 bucket
+
 
 # CLOUDINARY_STORAGE = {
 #     'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
@@ -256,29 +238,6 @@ STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deploy
 
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-# # AWS
-# AWS_STORAGE_BUCKET_NAME = 'romyia-bucket'
-# AWS_S3_SIGNATURE_VERSION = 's3v4'
-# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-# AWS_S3_ACCESS_KEY_ID = os.environ.get('AWS_S3_ACCESS_KEY_ID')
-# AWS_S3_SECRET_ACCESS_KEY = os.environ.get('AWS_S3_SECRET_ACCESS_KEY')
-# AWS_S3_REGION_NAME = 'eu-north-1'
-# AWS_S3_QUERYSTRING_AUTH = False
-
-# AWS_S3_FILE_OVERWRITE = False
-# AWS_DEFAULT_ACL = None
-# AWS_S3_VERIRTY = True
-# # using s3 bucket
-# static url
-# STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
-# root url
-# STATIC_ROOT = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
-
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# handling the Debug mode
-
-# DEBUG = env.bool("DEBUG", default=False)
   
 myenv=os.environ.get('ENV')
 if myenv == 'PRODUCTION':

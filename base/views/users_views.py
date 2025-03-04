@@ -28,17 +28,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         """
         data = super().validate(attrs)
         # make empty dictionary
-        # data = {} # if we want remove the access and refresh token from the response and add our own
-
         refresh = self.get_token(self.user)
-        
-        # method 1 you can add the key value pairs manually
-        # data["refresh"] = str(refresh)
-        # data["access"] = str(refresh.access_token)
-        # data["username"]=self.user.username
-        # data["email"]=self.user.email
-
-        # mthod 2 use serilizers that already have token and key value pairs
         serializer=UserSerializerWithToken(self.user).data
         data.update(serializer)
          
