@@ -142,24 +142,12 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# default database
+# postgresql database
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DB_URL')
+    )
 }
-# we will use the postgresql database # local server
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": 'django_shop',
-#         'USER': 'postgres',
-#         'PASSWORD':os.environ.get('PG_DB_PASSWORD'),
-#         'HOST':'localhost',
-#         'PORT':'5432'
-#     }
-# }
 
 
 # Password validation
@@ -228,16 +216,13 @@ STATIC_ROOT = BASE_DIR / "static" # the path to the static folder for the deploy
 
 
 
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
-#     'API_KEY': os.environ.get('API_KEY'),
-#     'API_SECRET': os.environ.get('API_SECRET'),
-# }
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET'),
+}
 
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
   
 myenv=os.environ.get('ENV')
 if myenv == 'PRODUCTION':
@@ -266,4 +251,3 @@ else:
     "http://127.0.0.1:8000", 
     ]
     CORS_ALLOW_ALL_ORIGINS=True
-# print caurren server url domain

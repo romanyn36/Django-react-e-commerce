@@ -1,8 +1,18 @@
 # rename thhis to .env and add the following secret keys based on your environment needs please check settings.py for more details
-SECRET_KEY = 
+SECRET_KEY =
+
 ENV= 'Local' # Local or Production PRODUCTION
-PG_DB_PASSWORD=
-SCALINGO_POSTGRESQL_URL=
+
+
+# ============================================ DB CONFIGURATION
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
+DB_HOST=
+#or url
+DB_URL=
+
+
 # Copy and paste your API environment variable
 # =============================================
 
