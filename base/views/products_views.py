@@ -23,7 +23,6 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 def getProducts(request):
     # search by keyword
     keyword=request.query_params.get('keyword')
-    # print(query)
     if keyword==None:
         keyword=''
     products=Product.objects.filter(name__icontains=keyword).order_by('id')
@@ -106,7 +105,6 @@ def updateProduct(request,pk):
     product.category=data['category']
     image=request.FILES.get('image')
     if image:
-        print('image')
         product.image=image
     product.description=data['description']
     

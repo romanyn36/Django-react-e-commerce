@@ -5,7 +5,6 @@ from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    # ensure return product objects in json format
     reviews=serializers.SerializerMethodField(read_only=True)
     class Meta:
         model=Product
@@ -16,23 +15,18 @@ class ProductSerializer(serializers.ModelSerializer):
         return serlizer.data
         
 class ReviewSerializer(serializers.ModelSerializer):
-    # ensure return review objects in json format
     class Meta:
         model=Review
         fields="__all__"
 class ShippingAddressSerializer(serializers.ModelSerializer):
-    # ensure return shipping address objects in json format
     class Meta:
         model=ShippingAddress
         fields="__all__"
 class OrderItemSerializer(serializers.ModelSerializer):
-    # ensure return order item objects in json format
     class Meta:
         model=OrderItem
         fields="__all__"
 class OrderSerializer(serializers.ModelSerializer):
-    # ensure return order objects in json format
-    # now we return itesm in the order
     orderItems=serializers.SerializerMethodField(read_only=True)
     shippingAddress=serializers.SerializerMethodField(read_only=True)
     user=serializers.SerializerMethodField(read_only=True)
@@ -43,10 +37,8 @@ class OrderSerializer(serializers.ModelSerializer):
         """orderitem_set is default name for related name in Order model
         thats means if you have ordeitems objects related to order object you can get it by order.orderitem_set.all()
         """
-        items=obj.orderitem_set.all() # get all related order items # just meed orderitems only
-        # items=OrderItem.objects.filter(order=obj)# like a above line but more complex filter and less performance
-        # items= OrderItem.objects.select_related('order').all() # get all order items related to order and order object in single query # make it efficient if you need order object
-        items=obj.orderitem_set.select_related('order').all() #like otion 1 but more efficient if you need order object
+        items=obj.orderitem_set.all() 
+        items=obj.orderitem_set.select_related('order').all() 
         serlizer=OrderItemSerializer(items,many=True)
         return serlizer.data
     
@@ -65,16 +57,11 @@ class OrderSerializer(serializers.ModelSerializer):
 
 # UserSerializer
 class UserSerializer(serializers.ModelSerializer):
-    """each key have defualt getter if we need customize it key value we must customize or overwrrite getter
-    or just keep original model key"""
     # ensure return product objects in json format
     class Meta:
         model=User
-        fields=["id",'name',"username","email","isAdmin"]
+        fields=["id",'name',"username","email","isAdmin",'is_superuser']
     
-        
-    # assume we have empty fields in the model like name
-    # we aoverwrite the getter
     name=serializers.SerializerMethodField(read_only=True)
     def get_name(self,obj):
         name=name=obj.first_name
@@ -87,18 +74,15 @@ class UserSerializer(serializers.ModelSerializer):
         isAdmin=obj.is_staff
         return isAdmin
 class UserSerializerWithToken(UserSerializer):
-    """we just add new key "token"
-    this inherited from UserSerializer so all keys in UserSerializer will be in UserSerializerWithToken
+    """
+    this serializer is used to return user data along with token
     """
     token=serializers.SerializerMethodField(read_only=True)
     class Meta:
         model=User
-        fields=["id",'name',"username","email","isAdmin",'token']
+        fields=["id",'name',"username","email","isAdmin",'is_superuser','token']
     def get_token(self,obj):
         """we genertae token for the user"""
-        # or we can use AccessToken.for_user(obj) to get access token
-        # token=AccessToken.for_user(obj)
-        # or we can use RefreshToken.for_user(obj) to get refresh token and extract access token from it
         token=RefreshToken.for_user(obj)
         return str(token.access_token)
         

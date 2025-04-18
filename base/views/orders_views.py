@@ -55,7 +55,6 @@ def addOrderItems(request):
     user= request.user
     data=request.data
     orderItems=data['orderItems']
-    # print('orderItems:',orderItems)
     # chek if list or string
     if isinstance(orderItems,str):
         orderItems=json.loads(orderItems)
@@ -64,7 +63,6 @@ def addOrderItems(request):
     shippingAddress = data.get('shippingAddress',{})
     if isinstance(shippingAddress,str):
         shippingAddress=json.loads(shippingAddress)
-    # print('orderItems:',orderItems)
     if orderItems and len(orderItems)==0:
         return Response({'detail':'No Order Items'},status=status.HTTP_400_BAD_REQUEST)
     else:
@@ -89,7 +87,9 @@ def addOrderItems(request):
        
         # 3 create order items
         for i in orderItems:
-            product=Product.objects.get(id=i['product'])
+            product=Product.objects.filter(id=i['product']).first()
+            if product is None:
+                return Response({'detail':'Product not found'},status=status.HTTP_400_BAD_REQUEST)
             orderItem=OrderItem.objects.create(
                 product=product,
                 order=order,
@@ -188,14 +188,15 @@ def create_paypal_payment(order_id):
     if payment.create():
         return payment
     else:
-        print(payment.error)  # Log for debugging
         return None
 
 # update order to delivered
 @api_view(['PUT'])
 @permission_classes([IsAdminUser])
 def updateOrderToDelivered(request,pk):
-    order=Order.objects.get(id=pk)
+    order=Order.objects.filter(id=pk).first()
+    if order is None:
+        return Response({'detail':'Order not found'},status=status.HTTP_400_BAD_REQUEST)
     order.isDelivered=True
     order.deliveredAt=timezone.now()
     order.save()
