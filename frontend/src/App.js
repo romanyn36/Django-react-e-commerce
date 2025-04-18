@@ -21,6 +21,7 @@ import UserListScreen from "./screens/UserListScreen";
 import ProductsListScreen from "./screens/ProductsListScreen";
 import ProductCreateUpdate from "./screens/ProductCreateUpdate";
 import OrdersListScreen from "./screens/OrdersListScreen";
+import MyOrders from "./screens/MyOrders";
 
 
 function App() {
@@ -37,10 +38,12 @@ function App() {
             <Route path="/login" Component={LoginPage}></Route>
             <Route path="/register" Component={RegisterPage}></Route>
             <Route path="/profile" Component={ProfilePage}></Route>
+            <Route path="/my-orders" Component={MyOrders}></Route>
             <Route path="/shipping" Component={ShippingPage}></Route>
             <Route path="/payment" Component={PaymentPage}></Route>
             <Route path="/placeorder" Component={PlaceOrderScreen}></Route>
             <Route path="/order/:id" Component={OrderScreen}></Route>
+            {/* admin */}
             <Route path="/admin/users" Component={UserListScreen}></Route>
             <Route path='admin/users/:id/edit' Component={UserEditScreen}></Route>
             <Route path="/admin/products" Component={ProductsListScreen}></Route>

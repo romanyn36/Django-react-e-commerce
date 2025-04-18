@@ -3,16 +3,16 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function AlertModal({myaction= () => {}, variant='danger',customebutton  = <Button variant={variant} >Primary</Button>
-,title="Are you sure?", message="Are you sure you want to delete this item?",savetitle="Save Changes"}) {
+function AlertModal({myaction= () => {}, variant='primary', customebutton  = <Button variant={variant} >Primary</Button>, title="Are you sure?", message="Are you sure you want to delete this item?", savetitle="Save Changes"}) {
     const [show, setShow] = useState(false);
 
-    const handleClose = () => {
-        setShow(false);
-        myaction();
-    }
+    const handleClose = () => setShow(false);
     const handleCancel = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleSave = () => {
+        myaction();
+        setShow(false);
+    }
 
     // Clone the button to add the onClick handler
     const buttonWithHandler = React.cloneElement(customebutton, {
@@ -32,7 +32,7 @@ function AlertModal({myaction= () => {}, variant='danger',customebutton  = <Butt
                     <Button variant="secondary" onClick={handleCancel}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant={variant} onClick={handleSave}>
                         {savetitle}
                     </Button>
                 </Modal.Footer>

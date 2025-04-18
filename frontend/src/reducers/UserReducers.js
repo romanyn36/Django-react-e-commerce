@@ -23,6 +23,7 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_REQUEST,
+  USER_UPDATE_RESET,
 } from "../constants/UserConstants";
 // this is the reducer that will update the state
 export const UserLoginReducers = (state = {}, action) => {
@@ -123,6 +124,8 @@ export const UserUpdateReducers = (state = { user: {} }, action) => {
       return { loading: false, success: true };
     case USER_UPDATE_FAIL:
       return { loading: false, error: action.playload };
+    case USER_UPDATE_RESET:
+      return { user: {} };
     default:
       return state;
   }

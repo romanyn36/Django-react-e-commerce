@@ -9,21 +9,28 @@ const SearchBox = () => {
     const userLogin = useSelector(state => state.userLogin)
     const currentpath = window.location.pathname
     const { userInfo } = userLogin
+    
     const onSubmitHandler = (e) => {
         e.preventDefault()
         if (keyword.trim()) {
             // redirect to the search page
             // if search contains /admin/products redirect to this page
-            console.log("currentUrl", currentpath)
             if (currentpath.includes('/admin/products')) {
                 navigate(`/admin/products?keyword=${keyword}&page=1`)
             }
             else {
                 navigate(`/?keyword=${keyword}&page=1`)
             }
-            
+        } else {
+            // If search is empty, return to original page without search parameters
+            if (currentpath.includes('/admin/products')) {
+                navigate('/admin/products')
+            } else {
+                navigate('/')
+            }
         }
     }
+    
     return (
         <div>
             <Form onSubmit={onSubmitHandler} className="d-flex">

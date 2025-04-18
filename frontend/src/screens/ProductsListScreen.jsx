@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { deleteUserAction, userListAction } from '../actions/UserActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { Alert, Button, ButtonGroup, Col, Row, Table } from 'react-bootstrap'
+import { Alert, Button, ButtonGroup, Card, Col, Row, Table, Badge, Form, InputGroup } from 'react-bootstrap'
 import AlertModal from '../components/AertModal'
 import { deleteProductAction, productsListAction } from '../actions/productActions'
 import Paginator from '../components/Paginator'
@@ -20,6 +20,7 @@ function ProductsListScreen() {
     const { loading, error, products, page, pages } = productsList
     const productDelete = useSelector(state => state.productDelete)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
+    const [filter, setFilter] = useState('all')
 
     useEffect(() => {
         if (!userInfo || !userInfo.isAdmin) {
@@ -38,90 +39,190 @@ function ProductsListScreen() {
     }
 
     return (
-        <div>
-        
-            {errorDelete && <Alert variant='danger'>{errorDelete}</Alert>}
+        <div className="product-list-container py-4">
+            <Card className="shadow-sm border-0 mb-4">
+                <Card.Body>
+                    <Row className='align-items-center'>
+                        <Col lg={4}>
+                            <h2 className="mb-0">
+                                <i className="fas fa-box me-2 text-primary"></i>
+                                Product Management
+                            </h2>
+                        </Col>
+                        <Col lg={4} className="my-3 my-lg-0">
+                            <InputGroup>
+                                <SearchBox className="border-start-0" />
+                            </InputGroup>
+                        </Col>
+                        <Col lg={4} className='text-end'>
+                            <Button 
+                                className='rounded-pill' 
+                                size="sm"
+                                variant="primary"
+                                onClick={() => navigate('/admin/products/add')}
+                            >
+                                <i className='fas fa-plus me-2'></i> Add New Product
+                            </Button>
+                        </Col>
+                    </Row>
+                </Card.Body>
+            </Card>
 
-            <Row className='align-items-center'>
-                <Col >
-                    <h1>Proucts</h1>
-                    <SearchBox />
-                </Col>
-                
-                <Col className='text-end'>
-                
-                    <Button className='my-3' onClick={() => navigate('/admin/products/add')}>
-                        <i className='fas fa-plus'></i> Create Product
-                    </Button>
-                </Col>
-            </Row>
-
+            {errorDelete && 
+                <Alert variant='danger' className="d-flex align-items-center">
+                    <i className="fas fa-exclamation-circle me-2"></i>
+                    {errorDelete}
+                </Alert>
+            }
 
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
-                <div>
-                    <Table striped bordered hover responsive className='table-sm'>
+                <Card className="shadow-sm border-0">
+                    <Card.Header className="bg-light">
+                        <Row className="align-items-center">
+                            <Col>
+                                <h5 className="mb-0">Products List</h5>
+                            </Col>
+                            <Col xs="auto">
+                                <Form.Select 
+                                    value={filter} 
+                                    onChange={(e) => setFilter(e.target.value)}
+                                    className="form-select-sm"
+                                >
+                                    <option value="all">All Categories</option>
+                                    <option value="electronics">Electronics</option>
+                                    <option value="clothing">Clothing</option>
+                                    <option value="books">Books</option>
+                                </Form.Select>
+                            </Col>
+                        </Row>
+                    </Card.Header>
+                    <Card.Body className="p-0">
+                        <div className="table-responsive">
+                            <Table hover className="align-middle mb-0">
+                                <thead className="bg-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>PRODUCT</th>
+                                        <th>PRICE</th>
+                                        <th>CATEGORY</th>
+                                        <th>BRAND</th>
+                                        <th>STOCK</th>
+                                        <th className="text-center">ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {products.map(product => (
+                                        <tr key={product.id}>
+                                            <td>
+                                                <Badge bg="light" text="dark" pill>
+                                                    #{product.id}
+                                                </Badge>
+                                            </td>
+                                            <td>
+                                                <div className="d-flex align-items-center">
+                                                    <div className="product-img-wrapper me-3" style={{
+                                                        width: '50px',
+                                                        height: '50px',
+                                                        borderRadius: '8px',
+                                                        overflow: 'hidden',
+                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                                                    }}>
+                                                        <img 
+                                                            src={`${process.env.REACT_APP_MEDIA_URL}${product.image}`}  
+                                                            alt={product.name} 
+                                                            style={{
+                                                                width: '100%',
+                                                                height: '100%',
+                                                                objectFit: 'cover'
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <h6 className="mb-0">{product.name}</h6>
+                                                        <small className="text-muted">SKU: {product.id}</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <h6 className="mb-0 text-primary">${product.price}</h6>
+                                            </td>
+                                            <td>
+                                                <Badge bg="info" text="dark" pill>
+                                                    {product.category}
+                                                </Badge>
+                                            </td>
+                                            <td>
+                                                <span className="fw-medium">{product.brand}</span>
+                                            </td>
+                                            <td>
+                                                {product.countInStock > 0 ? (
+                                                    <Badge bg="success" pill>
+                                                        In Stock ({product.countInStock})
+                                                    </Badge>
+                                                ) : (
+                                                    <Badge bg="danger" pill>
+                                                        Out of Stock
+                                                    </Badge>
+                                                )}
+                                            </td>
+                                            <td>
+                                                <div className="d-flex justify-content-center gap-2">
+                                                    <Button 
+                                                        as={Link} 
+                                                        to={`/admin/products/${product.id}/edit`}
+                                                        variant='outline-primary'
+                                                        size="sm"
+                                                        className="rounded-pill px-3"
+                                                    >
+                                                        <i className='fas fa-edit me-1'></i> Edit
+                                                    </Button>
 
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>IMAGE</th>
-                                <th>NAME</th>
-                                <th>PRICE</th>
-                                <th>CATEGORY</th>
-                                <th>BRAND</th>
-                                <th></th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {products.map(product => (
-                                <tr key={product.id}>
-                                    <td>{product.id}</td>
-                                    <td> <img src={`${process.env.REACT_APP_MEDIA_URL}${product.image}`}  alt={product.name} width={50} height={50} /></td>
-                                    <td>{product.name}</td>
-                                    <td>
-                                        ${product.price}
-                                    </td>
-
-                                    <td>
-                                        {product.category}
-                                    </td>
-                                    <td>
-                                        {product.brand}
-                                    </td>
-                                    <td>
-                                        <Link to={`/admin/products/${product.id}/edit`}>
-                                            <Button className='btn btn-sm'
-                                                variant='light'
-                                            >
-                                                <i className='fas fa-edit'></i>
-                                            </Button>
-                                        </Link>
-
-                                        <AlertModal
-                                            myaction={() => deleteHandler(product.id)}
-                                            customebutton={
-                                                <Button
-                                                    className="btn btn-sm"
-                                                    variant="danger"
-                                                    onClick={() => deleteHandler(product.id)}
-                                                >
-                                                    <i className='fas fa-trash'></i>
-                                                </Button>
-                                            }
-
-                                            title='Delete Product'
-                                        />
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                    <Paginator page={page} pages={pages} isAdmin={true} keyword={keyword} />
-                </div>
+                                                    <AlertModal
+                                                        myaction={() => deleteHandler(product.id)}
+                                                        customebutton={
+                                                            <Button
+                                                                variant="outline-danger"
+                                                                size="sm"
+                                                                className="rounded-pill px-3"
+                                                            >
+                                                                <i className='fas fa-trash-alt me-1'></i> Delete
+                                                            </Button>
+                                                        }
+                                                        title='Delete Product'
+                                                    />
+                                                    
+                                                    <Button 
+                                                        variant="outline-secondary"
+                                                        size="sm"
+                                                        as={Link}
+                                                        to={`/product/${product.id}`}
+                                                        target="_blank"
+                                                        className="rounded-pill px-3"
+                                                    >
+                                                        <i className='fas fa-eye me-1'></i> View
+                                                    </Button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </div>
+                        
+                        {products.length === 0 && (
+                            <div className="text-center py-5">
+                                <i className="fas fa-box-open fa-3x text-muted mb-3"></i>
+                                <h5>No products found</h5>
+                                <p className="text-muted">Try changing your search criteria or add a new product</p>
+                            </div>
+                        )}
+                    </Card.Body>
+                    <Card.Footer className="bg-white">
+                        <Paginator page={page} pages={pages} isAdmin={true} keyword={keyword} />
+                    </Card.Footer>
+                </Card>
             )}
         </div>
-
     )
 }
 

@@ -1,16 +1,14 @@
 import React from "react";
-import { Container, Row, Col, Table } from "react-bootstrap";
-import Product from "../components/Product";
+import { Container, Row, Col, Table, Card, Badge, ListGroup } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, InputGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserDetailAction, userUpadateProfileAction } from "../actions/UserActions";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/UserConstants";
-import { MyOrdersAction } from "../actions/OrderActions";
+
 function ProfilePage() {
     const [userData, setUserData] = useState({ name: '', username: '', email: '', password: '', confirmPassword: '' });
     const [matchPassword, setMatchPassword] = useState(true);
@@ -21,9 +19,6 @@ function ProfilePage() {
     const { loading, error, userDetail: user } = userDetail;
     const userUpadat = useSelector(state => state.UserUpdateProfileReducers);
     const { success } = userUpadat;
-    const myOrders = useSelector(state => state.myOrdersReducers);
-
-    const { loading: loadingOrders, error: errorOrders, orders,success:successOrders } = myOrders;
     useEffect(() => {
         if (!userLogin.userInfo) {
             navigate('/login');
@@ -37,16 +32,11 @@ function ProfilePage() {
             if (user && user.name) {
                 setUserData({ name: user.name, username: user.username, email: user.email });
             }
-            // load orders
-            if (!orders || !successOrders) {
-                dispatch(MyOrdersAction());
-            }
         }
-        // console.log('user', user);
-        console.log('orders', orders);
+   
 
     }
-        , [dispatch, navigate, userLogin.userInfo, user, success,successOrders]);
+        , [dispatch, navigate, userLogin.userInfo, user, success]);
     const submitHandler = (e) => {
         e.preventDefault();
         // make sure the password and the confirm password are the same
@@ -79,110 +69,103 @@ function ProfilePage() {
     const { name, username, email, password, confirmPassword } = userData;
 
     return (
-        <Container>
-            <Row className='justify-content-md-center'>
-                <Col md={3}>
-                    <h3>User Profile</h3>
-                    {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
-                        <Form onSubmit={submitHandler}>
-                            <Form.Group controlId='name'>
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control
-                                    type='name'
-                                    placeholder='Enter name'
-                                    value={name}
-                                    name='name'
-                                    onChange={handlechange}
-                                ></Form.Control>
-                            </Form.Group>
-                            <Form.Group controlId='username'>
-                                <Form.Label>Username</Form.Label>
-                                <Form.Control
-                                    type='username'
-                                    placeholder='Enter username'
-                                    value={username}
-                                    name='username'
-                                    onChange={handlechange}
-                                ></Form.Control>
-                            </Form.Group>
+        <div className="m-0">
+            <h2 className="text-center mb-4">My Profile</h2>
+                    <Card className="shadow-sm border-0">
+                        <Card.Header className="bg-primary text-white">
+                            <h4 className="mb-0"><i className="fas fa-user-circle me-2"></i>Profile Information</h4>
+                        </Card.Header>
+                        <Card.Body>
+                            {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
+                                <Form onSubmit={submitHandler}>
+                                    <Form.Group controlId='name' className="mb-3">
+                                        <Form.Label>Full Name</Form.Label>
+                                        <InputGroup>
+                                            <InputGroup.Text><i className="fas fa-user"></i></InputGroup.Text>
+                                            <Form.Control
+                                                type='name'
+                                                placeholder='Enter your name'
+                                                value={name}
+                                                name='name'
+                                                onChange={handlechange}
+                                            />
+                                        </InputGroup>
+                                    </Form.Group>
+                                    
+                                    <Form.Group controlId='username' className="mb-3">
+                                        <Form.Label>Username</Form.Label>
+                                        <InputGroup>
+                                            <InputGroup.Text><i className="fas fa-at"></i></InputGroup.Text>
+                                            <Form.Control
+                                                type='username'
+                                                placeholder='Enter username'
+                                                value={username}
+                                                name='username'
+                                                onChange={handlechange}
+                                            />
+                                        </InputGroup>
+                                    </Form.Group>
 
-                            <Form.Group controlId='email'>
-                                <Form.Label>Email Address</Form.Label>
-                                <Form.Control
-                                    type='email'
-                                    placeholder='Enter email'
-                                    value={email}
-                                    name='email'
-                                    onChange={handlechange}
-                                ></Form.Control>
-                            </Form.Group>
+                                    <Form.Group controlId='email' className="mb-3">
+                                        <Form.Label>Email Address</Form.Label>
+                                        <InputGroup>
+                                            <InputGroup.Text><i className="fas fa-envelope"></i></InputGroup.Text>
+                                            <Form.Control
+                                                type='email'
+                                                placeholder='Enter email'
+                                                value={email}
+                                                name='email'
+                                                onChange={handlechange}
+                                            />
+                                        </InputGroup>
+                                    </Form.Group>
 
-                            <Form.Group controlId='password'>
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                    type='password'
-                                    placeholder='Enter password'
-                                    value={password}
-                                    name='password'
-                                    onChange={handlechange}
-                                ></Form.Control>
-                            </Form.Group>
-                            <Form.Group controlId='confirmPassword'>
-                                <Form.Label>Confirm Password</Form.Label>
-                                <Form.Control
-                                    type='password'
-                                    placeholder='Confirm password'
-                                    value={confirmPassword}
-                                    name='confirmPassword'
-                                    onChange={handlechange}
-                                ></Form.Control>
-                            </Form.Group>
-                            {!matchPassword ? <Message className="mt-5" variant='danger'>
-                                Passwords do not match
-                            </Message> : ''}
-                            <Button type='submit' variant='primary'>Update</Button>
-                        </Form>}
-                </Col>
-                <Col md={9}>
-                    <h3 >My Orders</h3>
-                    {loadingOrders ? <Loader /> : errorOrders ? <Message variant='danger'>{errorOrders}</Message> : (
-                        <Table striped bordered hover responsive className='table-sm'>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Date</th>
-                                    <th>Total</th>
-                                    <th>Paid</th>
-                                    <th>Delivered</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {orders &&
-                                 orders.map(order => (
-                                    <tr key={order.id}>
-                                        <td>{order.id}</td>
-                                        <td> {order.createdAt.substring(0, 10)}</td>
-                                        <td>{order.totalPrice}</td>
-                                        <td>{order.isPaid ? order.paidAt.substring(0, 10) : (
-                                            <i className='fas fa-times' style={{ color: 'red' }}></i>
-                                        )}</td>
-                                        <td className="">{order.isDelivered ? order.deliveredAt.substring(0, 10) : (
-                                            <i className='fas fa-times' style={{ color: 'red' }}></i>
-                                        )} <Button variant='info' onClick={() => navigate(`/order/${order.id}`)}>Details</Button></td>
-                                    </tr>
+                                    <hr className="my-4" />
+                                    <h5 className="mb-3">Change Password</h5>
 
-                                ))}
-
-                            </tbody>
-
-                        </Table>
-                    )}
-
-
-                </Col>
-            </Row>
-        </Container>
+                                    <Form.Group controlId='password' className="mb-3">
+                                        <Form.Label>New Password</Form.Label>
+                                        <InputGroup>
+                                            <InputGroup.Text><i className="fas fa-lock"></i></InputGroup.Text>
+                                            <Form.Control
+                                                type='password'
+                                                placeholder='Enter new password'
+                                                value={password}
+                                                name='password'
+                                                onChange={handlechange}
+                                            />
+                                        </InputGroup>
+                                        <Form.Text muted>Leave blank to keep current password</Form.Text>
+                                    </Form.Group>
+                                    
+                                    <Form.Group controlId='confirmPassword' className="mb-4">
+                                        <Form.Label>Confirm Password</Form.Label>
+                                        <InputGroup>
+                                            <InputGroup.Text><i className="fas fa-lock"></i></InputGroup.Text>
+                                            <Form.Control
+                                                type='password'
+                                                placeholder='Confirm new password'
+                                                value={confirmPassword}
+                                                name='confirmPassword'
+                                                onChange={handlechange}
+                                                isInvalid={!matchPassword && confirmPassword}
+                                            />
+                                            <Form.Control.Feedback type="invalid">
+                                                Passwords do not match
+                                            </Form.Control.Feedback>
+                                        </InputGroup>
+                                    </Form.Group>
+                                    
+                                    <div className="d-grid">
+                                        <Button type='submit' variant='primary' size="md">
+                                            <i className="fas fa-save me-2"></i>Update Profile
+                                        </Button>
+                                    </div>
+                                </Form>
+                            )}
+                        </Card.Body>
+                    </Card>
+        </div>
     )
 }
 export default ProfilePage;
