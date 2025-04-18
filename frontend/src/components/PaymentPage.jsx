@@ -18,7 +18,6 @@ function PaymentPage() {
     }, [])
     const submitHandler = (e) => {
         e.preventDefault()
-        console.log('payment data', paymentMethod)
         dispatch(savePaymentMethodAction(paymentMethod))
         navigate('/placeorder')
 

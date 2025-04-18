@@ -61,9 +61,7 @@ var cartItems = [];
 if (localStorage.getItem("cartItems")) {
   try {
     cartItems = JSON.parse(localStorage.getItem("cartItems"));
-    // console.log("cartItems", cartItems);
   } catch (error) {
-    // console.log("error", error);
     cartItems = [];
   }
 }

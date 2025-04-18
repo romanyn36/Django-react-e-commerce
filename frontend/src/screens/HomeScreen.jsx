@@ -16,52 +16,68 @@ function HomeScreen() {
   const searchQuery = window.location ? window.location.search : "";
   var keyword = '';
   if (searchQuery) {
-    // console.log("searchQuery", searchQuery);
      keyword = searchQuery.split("keyword=")[1].split("&")[0] || "";
   }
 
-  // console.log("searchQuery", searchQuery);
   const dispatch = useDispatch();
-  // 2// now we select the product state to get the data
   const products_List = useSelector((state) => state.productsList);
-  // 3 //get the result of each state based on the action// result we get it from ProductListReducers
   const { loading, products, error, pages, page } = products_List;
 
 
   useEffect(() => {
-    //  1 // make action to update products state
     dispatch(productsListAction(searchQuery));
   }, [dispatch, searchQuery]);
 
   return (
-    <div>
-   <SearchBox />
-      {loading ? <Loader></Loader> :
-        error ? <Message variant='danger'> {error}</Message>
-          : products && products.length === 0 ? <Message variant='info'>No Products Found</Message> :
-          <div>
-            {/* if keyword empty and null then show carousel */}
-            Top Rated Products
-            {!searchQuery && <ProductsCarousel />}
-            
+    <Container className="py-4">
+      <div className="mb-4">
+        <SearchBox />
+      </div>
+      
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : products && products.length === 0 ? (
+        <div className="text-center py-5">
+          <Message variant="info">
+            <h4>No Products Found</h4>
+            <p className="mt-2">Try a different search term or browse our categories</p>
+          </Message>
+        </div>
+      ) : (
+        <div>
+          {/* if keyword empty and null then show carousel */}
+          {!searchQuery && (
+            <>
+              <div className="mb-4">
+                <h2 className="text-primary mb-3">Top Rated Products</h2>
+                <ProductsCarousel />
+              </div>
+            </>
+          )}
+          
+          <div className="my-4">
+            <h2 className={searchQuery ? "mb-4" : "mb-4"}>
+              {searchQuery ? `Search Results${keyword ? ` for "${keyword}"` : ""}` : "Latest Products"}
+            </h2>
             <Row>
-              {/* {console.log("products", products)}
-              {console.log("error", error)}
-              {console.log("length", products.length)} */}
-
-              {products && products.length > 0 && products.map((productitem) => (
-                <Col key={productitem.id} sm={12} md={6} lg={4} xl={3}>
-
+              {products && 
+               products.length > 0 && 
+               products.map((productitem) => (
+                <Col key={productitem.id} sm={12} md={6} lg={4} xl={3} className="mb-4">
                   <Product product={productitem} />
                 </Col>
-                
               ))}
             </Row>
+          </div>
+          
+          <div className="d-flex justify-content-center mt-4">
             <Paginator pages={pages} page={page} keyword={keyword} />
           </div>
-
-      }
-    </div>
+        </div>
+      )}
+    </Container>
   );
 }
 

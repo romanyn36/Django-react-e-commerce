@@ -53,7 +53,6 @@ function RegisterPage() {
         }
     }
     const { name, username, email, password, confirmPassword } = userdata;
-    // console.log(userdata);
     return (
 
         <Container>

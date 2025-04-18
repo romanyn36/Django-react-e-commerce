@@ -11,7 +11,6 @@ function Haeder() {
   const userLogin = useSelector(state => state.userLogin);
   const { loading, error, userInfo } = userLogin;
   useEffect(() => {
-    // console.log("userInfo from header", userInfo);
   }, [userInfo]);
 
   const logoutHandler = () => {

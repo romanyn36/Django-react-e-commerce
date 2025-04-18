@@ -26,7 +26,6 @@ function PlaceOrderScreen() {
             navigate('/payment')
         }
         if (success) {
-            // console.log('order', order)
             navigate(`/order/${order.id}`)
             // reset Order
             dispatch({ type: ORDER_CREATE_RESET })

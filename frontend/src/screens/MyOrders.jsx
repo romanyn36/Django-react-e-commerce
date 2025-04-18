@@ -71,7 +71,7 @@ function MyOrders() {
                         </div>
                     ) : (
                         <Row>
-                            {orders.map(order => (
+                            {orders && orders.map(order => (
                                 <Col md={6} lg={4} key={order.id} className="mb-4">
                                     <Card className="h-100 shadow-sm border-0 order-card">
                                         <Card.Header className="d-flex justify-content-between align-items-center bg-light">

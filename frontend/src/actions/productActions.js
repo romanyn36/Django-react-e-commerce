@@ -94,9 +94,6 @@ export const deleteProductAction = (id) => async (dispatch, getState) => {
 // create or update product action
 export const createOrUpdateProductAction = (product,id=null) => async (dispatch, getState) => {
   try {
-       for (let [key, value] of product.entries()) {
-            console.log(key, value);
-        }
     // send action to producer in cases success
     dispatch({ type: PRODUCT_CREATE_OR_UPDATE_REQUEST });
     const { userLogin: { userInfo } } = getState()

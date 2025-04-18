@@ -46,7 +46,6 @@ function ProductPage() {
     navigate(`/cart/${id}?quantity=${quantity}`)
   }
   const addToCartHandler = () => {
-    // console.log("add to cart")  
     dispatch(addToCartAction(id, Number(quantity)))
   }
   const submitHandler = (e) => {

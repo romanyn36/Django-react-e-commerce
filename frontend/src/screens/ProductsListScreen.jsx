@@ -171,8 +171,8 @@ function ProductsListScreen() {
                                                         as={Link} 
                                                         to={`/admin/products/${product.id}/edit`}
                                                         variant='outline-primary'
-                                                        size="sm"
-                                                        className="rounded-pill px-3"
+                                                        size="md"
+                                                        className="border-0 rounded-pill px-3"
                                                     >
                                                         <i className='fas fa-edit me-1'></i> Edit
                                                     </Button>
@@ -182,8 +182,8 @@ function ProductsListScreen() {
                                                         customebutton={
                                                             <Button
                                                                 variant="outline-danger"
-                                                                size="sm"
-                                                                className="rounded-pill px-3"
+                                                                size="md"
+                                                                className="border-0 rounded-pill px-3"
                                                             >
                                                                 <i className='fas fa-trash-alt me-1'></i> Delete
                                                             </Button>
@@ -193,11 +193,11 @@ function ProductsListScreen() {
                                                     
                                                     <Button 
                                                         variant="outline-secondary"
-                                                        size="sm"
+                                                        size="md"
                                                         as={Link}
                                                         to={`/product/${product.id}`}
                                                         target="_blank"
-                                                        className="rounded-pill px-3"
+                                                        className="border-0 rounded-pill px-3"
                                                     >
                                                         <i className='fas fa-eye me-1'></i> View
                                                     </Button>

@@ -144,7 +144,6 @@ export const userUpadateProfileAction =
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
-      console.log("user", user);
       const { data } = await axios.put(url, user, config);
       dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, playload: data });
       dispatch({ type: USER_LOGIN_SUCCESS, playload: data });

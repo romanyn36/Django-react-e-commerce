@@ -18,7 +18,7 @@ function OrderScreen() {
     const { userInfo } = userLogin
 
     const orderDetails = useSelector(state => state.orderDetails)
-    // console.log("orderDetails", orderDetails)
+
     const { order, error, loading } = orderDetails
 
     const orderPay = useSelector(state => state.orderPay)
@@ -28,7 +28,6 @@ function OrderScreen() {
     const orderDeliver = useSelector(state => state.orderDeliver)
     const { success: successDeliver, loading: loadingDeliver ,message} = orderDeliver
     useEffect(() => {
-        console.log("useEffect")
         if (!order || order.id !== Number(id) || successPay || successDeliver) {
             dispatch({ type: ORDER_PAY_RESET })
             dispatch({ type: ORDER_DELIVER_RESET })
@@ -44,7 +43,6 @@ function OrderScreen() {
 
 
     const handleSuccessPayment = (paymentResult) => {
-        console.log("paymentResult", paymentResult)
         dispatch(createOrderAction({
             paymentResult: paymentResult
         }))

@@ -10,7 +10,6 @@ import axios from "axios";
 export const addToCartAction = (id, quantity) => async (dispatch, getState) => {
   const url =process.env.REACT_APP_API_URL + `/api/products/${id}/`;
   const { data } = await axios.get(url);
-  //   console.log(data)
   dispatch({
     type: CART_ADD_ITEM,
     playload: {
